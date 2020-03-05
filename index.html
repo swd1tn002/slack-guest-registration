@@ -10,8 +10,9 @@
             font-family: sans-serif;
         }
         .user {
-            float: left;
+            display: inline-block;
             margin: 0 20px 20px 0;
+            text-align: center;
         }
         .userImage {
             width: 150px;
@@ -26,12 +27,16 @@
         .userImage:active {
             border: solid green 2px;
         }
+        #loading + h1 {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
 
     <div id="loading">Loading the users... Please wait...</div>
+    <h1>Who did you come to meet?</h1>
     <div id="users"></div>
 
     <template id="slack-user">
