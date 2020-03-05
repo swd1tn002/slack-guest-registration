@@ -2,6 +2,8 @@
 
 This is a proof-of-concept serverless guest registration application implemented with Azure functions. The two Azure functions provide a list of users on a workspace and a way of notifying a single user about an arriving guest with a private message.
 
+A demo UI of the application can be viewed at: https://raw.githack.com/swd1tn002/slack-guest-registration/master/
+
 ## Requirements
 
 * Slack workspace where the bot can see users and send messages
