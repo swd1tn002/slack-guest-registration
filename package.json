@@ -1,0 +1,12 @@
+{
+  "name": "slack-guest-registration",
+  "version": "1.0.0",
+  "description": "Slack guest registration demo",
+  "scripts": {
+    "test": "echo \"No tests yet...\""
+  },
+  "author": "TH",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
+}
