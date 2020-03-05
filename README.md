@@ -46,6 +46,7 @@ Create a new Azure function app at https://portal.azure.com/. The demo app runs 
 
 Set the Slack bot token in a configration variable `SLACK_TOKEN` in the portal: `Home > All resources > name-of-your-functions-app > Configuration`.
 
+If you need to call the API endpoints using a web application, set up Cross-Origin Resource Sharing (CORS) rules in `Platform Features > Api > Cors`. You can set the *Allowed Origins* to asterisk `*` to allow requests from all origins.
 
 ## Command line usage
 

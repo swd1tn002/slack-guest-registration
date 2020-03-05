@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Slack guest notifications with Azure functions</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: sans-serif;
+        }
+        .user {
+            float: left;
+            margin: 0 20px 20px 0;
+        }
+        .userImage {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: solid silver 2px;
+        }
+        .userImage:hover {
+            border: solid blue 2px;
+        }
+        .userImage:active {
+            border: solid green 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loading">Loading the users... Please wait...</div>
+    <div id="users"></div>
+
+    <template id="slack-user">
+        <div class="user">
+            <img class="userImage" />
+            <h3 class="realName"></h3>
+        </div>
+    </template>
+
+    <script>
+
+        const GET_USERS = `https://slack-guest-registration.azurewebsites.net/api/GetUsers?code=test`;
+        const SEND_GUEST_NOTIFICATION = `https://slack-guest-registration.azurewebsites.net/api/sendguestnotification?code=test`;
+        const userTemplate = document.getElementById("slack-user");
+        const usersContainer = document.getElementById("users");
+
+        async function notifyUser(userId) {
+            try {
+                let usersResponse = await fetch(`${SEND_GUEST_NOTIFICATION}&id=${userId}`, { mode: "cors" });
+                if (usersResponse.status != 200) {
+                    throw "Error " + usersResponse.status;
+                }
+                let json = await usersResponse.json();
+                if (!json.ok) {
+                    throw "Slack returned an unsuccessful response :(";
+                }
+                alert("Notification sent!");
+                
+            } catch (exception) {
+                alert('Sending the notification failed');
+                console.log(exception);
+            }
+        }
+
+        async function loadUsers() {
+            try {
+                let usersResponse = await fetch(GET_USERS, { mode: "cors" });
+                if (usersResponse.status != 200) {
+                    throw "Error " + usersResponse.status;
+                }
+                let json = await usersResponse.json();
+
+                let userElements = json.forEach(user => {
+                    let node = document.importNode(userTemplate.content, true);
+                    node.querySelector(".realName").textContent = user.real_name;
+                    node.querySelector(".userImage").src = user.image;
+                    node.querySelector(".userImage").onclick = () => {
+                        notifyUser(user.id);
+                    }
+                    usersContainer.appendChild(node);
+                });
+
+                document.getElementById("loading").remove();
+            } catch (exception) {
+                alert('Getting the users failed');
+                console.log(exception);
+            }
+        }
+
+        loadUsers();
+    </script>
+</body>
+
+</html>
