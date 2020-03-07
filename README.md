@@ -48,7 +48,7 @@ This file contains the secret token for authenticating your bot and **must not b
 
 ## Command line usage
 
-To use the Azure functions command line tools, install the tools with NPM. Note that as of writing the most recent build of `azure-functions-core-tools` crashed when publishing, while the older version `2.7.1575` works properly:
+To use the Azure functions command line tools, install the tools with NPM. Note that as of writing the most recent build 2.7.2254 of `azure-functions-core-tools` crashed when publishing to Azure, while the older version `2.7.1575` works properly ([see discussion](https://stackoverflow.com/a/60322244)):
 
 ```
 > npm install -g azure-functions-core-tools@2.7.1575
