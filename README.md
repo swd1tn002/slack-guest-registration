@@ -80,7 +80,7 @@ To test the application you can access `index.html` with your browser. Due to CO
     > py -m http.server 8000 --bind 127.0.0.1
     Serving HTTP on 127.0.0.1 port 8000 (http://127.0.0.1:8000/) ...
 
-Then visit http://localhost:8080 with your browser.
+Then visit http://localhost:8000 with your browser.
 
 
 ## GetUsers
