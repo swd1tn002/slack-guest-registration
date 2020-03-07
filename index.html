@@ -23,9 +23,11 @@
         }
         .userImage:hover {
             border: solid blue 2px;
+            box-shadow: lightblue 0 0 30px;
         }
         .userImage:active {
             border: solid green 2px;
+            box-shadow: lightgreen 0 0 30px;
         }
         #loading + h1 {
             display: none;
@@ -47,9 +49,11 @@
     </template>
 
     <script>
+        let production = false;
+        const HOST = production ? "https://slack-guest-registration.azurewebsites.net" : "http://localhost:7071";
 
-        const GET_USERS = `https://slack-guest-registration.azurewebsites.net/api/GetUsers?code=test`;
-        const SEND_GUEST_NOTIFICATION = `https://slack-guest-registration.azurewebsites.net/api/sendguestnotification?code=test`;
+        const GET_USERS = `${HOST}/api/GetUsers?code=test`;
+        const SEND_GUEST_NOTIFICATION = `${HOST}/api/sendguestnotification?code=test`;
         const userTemplate = document.getElementById("slack-user");
         const usersContainer = document.getElementById("users");
 

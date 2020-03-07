@@ -2,7 +2,8 @@
 
 This is a proof-of-concept serverless guest registration application implemented with Azure functions. The two Azure functions provide a list of users on a workspace and a way of notifying a single user about an arriving guest with a private message.
 
-A demo UI of the application can be viewed at: https://raw.githack.com/swd1tn002/slack-guest-registration/master/
+<!-- temporarily suspended -->
+<!-- A demo UI of the application can be viewed at: https://raw.githack.com/swd1tn002/slack-guest-registration/master/ -->
 
 ## Requirements
 
@@ -35,20 +36,15 @@ Create a new file `local.settings.json` with the following contents in your proj
     "FUNCTIONS_WORKER_RUNTIME": "node",
     "AzureWebJobsStorage": "{AzureWebJobsStorage}",
     "SLACK_TOKEN": COPY_THE_SLACK_TOKEN_HERE
+  },
+  "Host": {
+    "CORS": "*"
   }
 }
 ```
 
 This file contains the secret token for authenticating your bot and **must not be included in your Git repository**.
 
-
-## Setting up Azure functions app
-
-Create a new Azure function app at https://portal.azure.com/. The demo app runs on recommended settings with Node.js runtime stack (Node.js version 12).
-
-Set the Slack bot token in a configration variable `SLACK_TOKEN` in the portal: `Home > All resources > name-of-your-functions-app > Configuration`.
-
-If you need to call the API endpoints using a web application, set up Cross-Origin Resource Sharing (CORS) rules in `Platform Features > Api > Cors`. You can set the *Allowed Origins* to asterisk `*` to allow requests from all origins.
 
 ## Command line usage
 
@@ -74,6 +70,17 @@ The function runtime will make two API endpoints available locally:
 >        GetUsers: [GET,POST] http://localhost:7071/api/GetUsers
 >
 >        SendGuestNotification: [GET,POST] http://localhost:7071/api/SendGuestNotification
+
+
+## Local testing
+
+To test the application you can access `index.html` with your browser. Due to CORS restrictions, the file needs to be accessed over HTTP and not directly from the file system. To serve the page over HTTP, you can use, for example, Python:
+
+    # In the directory where index.html is located:
+    > py -m http.server 8000 --bind 127.0.0.1
+    Serving HTTP on 127.0.0.1 port 8000 (http://127.0.0.1:8000/) ...
+
+Then visit http://localhost:8080 with your browser.
 
 
 ## GetUsers
@@ -120,6 +127,18 @@ If sending the private Slack message succeeds, the endpoint will response with t
   "ok": true
 }
 ```
+
+
+# Publishing to Azure
+
+## Setting up Azure functions app
+
+Create a new Azure function app at https://portal.azure.com/. The demo app runs on recommended settings with Node.js runtime stack (Node.js version 12).
+
+Set the Slack bot token in a configration variable `SLACK_TOKEN` in the portal: `Home > All resources > name-of-your-functions-app > Configuration`.
+
+If you need to call the API endpoints using a web application, set up Cross-Origin Resource Sharing (CORS) rules in `Platform Features > Api > Cors`. You can set the *Allowed Origins* to asterisk `*` to allow requests from all origins.
+
 
 ## Publish to cloud
 
